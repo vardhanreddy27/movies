@@ -3,8 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import { store } from './app/store';
+import { combineReducers } from "redux";
+
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { counterSlice, selectEmail, selectName } from './features/counter/counterSlice';
+
+const rootReducers = combineReducers({ list: selectEmail,selectName });
 
 ReactDOM.render(
   <React.StrictMode>

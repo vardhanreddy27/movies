@@ -1,58 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React, { useState } from 'react';
+import Login from './Login';
+import Signup from './Signup';
+import { BrowserRouter as Router, Routes, Route ,Link} from "react-router-dom";
+import Dashboard from './Dashboard';
+import Navbar from './Nav';
+import { useSelector } from 'react-redux';
+import { useAppSelector, useAppDispatch } from '../src/app/hooks';
+import { selectCount } from './features/counter/counterSlice';
+import { Icon } from '@iconify/react';
+import 'bootstrap/dist/js/bootstrap.js';
+import Popper from 'popper.js';
+import Slideshow from './Slideshow';
+function App()
+{
+    const auth = useAppSelector(selectCount);
+//const auth = useSelector((state) => state.auth)
+  if(!auth){
+  return (  
+    <Router><Routes><Route path="/" element={<Signup  />}/>
+   <Route path="/Login" element={<Login />}/>
+   <Route path="/Dashboard" element={<Dashboard  />}/>
+  </Routes> </Router>
+     )
+}else{ 
+  return (  
+  <Router>
+    <Routes><Route path="/" element={<Dashboard  />}/>
+  <Route path="/Dashboard" element={<Dashboard  />}/></Routes>
+  </Router>
+   )}
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  );
+
 }
 
-export default App;
+export default App
